@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.wangc</groupId>
+    <artifactId>wangc</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <modules>
+        <module>wangc-spring-boot</module>
+    </modules>
+
+    <!--<repositories>-->
+        <!--&lt;!&ndash; 指定maven仓库 &ndash;&gt;-->
+        <!--<repository>-->
+            <!--<id>aliyunmaven</id>-->
+            <!--<url>http://maven.aliyun.com/nexus/content/groups/public/</url>-->
+        <!--</repository>-->
+    <!--</repositories>-->
+
+    <!-- 配置远程发布到私服 -->
+    <!-- 配置这项后，通过maven deploy 会将tar包发布到私服上，替换了手动上传 -->
+    <!--<distributionManagement>-->
+        <!--<repository>-->
+            <!--<id>nexus-releases</id>-->
+            <!--<url>http://ip:port/nexus/content/repositories/releases/</url>-->
+        <!--</repository>-->
+        <!--<snapshotRepository>-->
+            <!--<id>snapshots</id>-->
+            <!--<url>http://ip:port/nexus/content/repositories/snapshots/</url>-->
+        <!--</snapshotRepository>-->
+    <!--</distributionManagement>-->
+
+    <properties>
+        <java.version>1.8</java.version>
+        <project.build.sourceEncoding.version>UTF-8</project.build.sourceEncoding.version>
+        <maven.compiler.plugin.version>3.1</maven.compiler.plugin.version>
+        <maven-project-info-reports-plugin.version>3.0.0</maven-project-info-reports-plugin.version>
+        <spring-boot-dependencies.version>2.2.2.RELEASE</spring-boot-dependencies.version>
+        <junit.version>4.12</junit.version>
+        <lombok.version>1.18.10</lombok.version>
+        <!-- 多配置环境下用于指定配置文件的根目录 -->
+        <profiles.dir>src/main/profiles</profiles.dir>
+    </properties>
+
+    <!-- dependencyManagement只定义在父pom中，用于给子模块统一定义版本，在这里依赖管理的版本在子模块中引入时不再需要指定version -->
+    <!-- 这里只是做了版本的统一管理，本身是没有下载依赖的 -->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+                <version>${maven-project-info-reports-plugin.version}</version>
+            </dependency>
+
+            <!-- 引入spring boot依赖管理，里面也是依赖了这里指定的版本对应的其他依赖，这个依赖相当于给你做了spring boot里面组件的版本统一-->
+            <!-- 子模块在引入spring-boot-starter-* 时都是从这个里面来的 -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot-dependencies.version}</version>
+                <!-- 这个是一定得要的，不然子模块的包不会引入 -->
+                <!-- 当一个父pom中的dependencyManagement标签中需要导入另一个pom中的dependencyManagement时，必须同时使用<scope>import</scope>和<type>pom</type>-->
+                <!-- 是为了让子模块可以多继承父模块-->
+                <!-- <type></type>的默认值是jar表示引入的是jar包，使用pom表示导入的是父模块中的值。<scope>import</scope>表示把父模块中的jar包导入进来 -->
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+        </dependencies>
+
+    </dependencyManagement>
+
+    <build>
+        <!-- 指定打包后的名称 -->
+        <finalName>wangc</finalName>
+
+        <!-- 这里也是对插件的一个版本统一管理，子模块引入这里面的插件不需要再自己指定版本 -->
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                        <encoding>${project.build.sourceEncoding.version}</encoding>
+                    </configuration>
+                    <version>${maven.compiler.plugin.version}</version>
+                </plugin>
+
+                <!-- assembly 打包方式是可以自己编写启动、停止脚本的，里面可以指定jvm参数，执行命令脚本的方式来启动应用 -->
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <configuration>
+                        <!-- 用于指定打包操作的配置文件 -->
+                        <descriptors>
+                            <descriptor>src/main/resources/assembly/assembly.xml</descriptor>
+                        </descriptors>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <id>make-assembly</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>single</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+
+                <plugin>
+                    <groupId>org/springframework.boot</groupId>
+                    <artifactId>spring-boot-maven-plugin</artifactId>
+                    <configuration>
+                        <fork>true</fork>
+                        <addResources>true</addResources>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        <!--<plugins>-->
+            <!--<plugin>-->
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
+                <!--<artifactId>maven-compiler-plugin</artifactId>-->
+                <!--<configuration>-->
+                    <!--<source>${java.version}</source>-->
+                    <!--<target>${java.version}</target>-->
+                    <!--<encoding>${project.build.sourceEncoding.version}</encoding>-->
+                <!--</configuration>-->
+                <!--<version>${maven.compiler.plugin.version}</version>-->
+            <!--</plugin>-->
+
+            <!--&lt;!&ndash; assembly 打包方式是可以自己编写启动、停止脚本的，里面可以指定jvm参数，执行命令脚本的方式来启动应用 &ndash;&gt;-->
+            <!--<plugin>-->
+                <!--<groupId>org.apache.maven.plugins</groupId>-->
+                <!--<artifactId>maven-assembly-plugin</artifactId>-->
+                <!--<configuration>-->
+                    <!--&lt;!&ndash; 用于指定打包操作的配置文件 &ndash;&gt;-->
+                    <!--<descriptors>-->
+                        <!--<descriptor>src/main/resources/assembly/assembly.xml</descriptor>-->
+                    <!--</descriptors>-->
+                <!--</configuration>-->
+                <!--<executions>-->
+                    <!--<execution>-->
+                        <!--<id>make-assembly</id>-->
+                        <!--<phase>package</phase>-->
+                        <!--<goals>-->
+                            <!--<goal>single</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                <!--</executions>-->
+            <!--</plugin>-->
+
+            <!--<plugin>-->
+                <!--<groupId>org/springframework.boot</groupId>-->
+                <!--<artifactId>spring-boot-maven-plugin</artifactId>-->
+                <!--<configuration>-->
+                    <!--<fork>true</fork>-->
+                    <!--<addResources>true</addResources>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
+        <!--</plugins>-->
+    </build>
+
+</project>

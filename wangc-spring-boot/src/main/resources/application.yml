@@ -1,0 +1,6 @@
+server:
+  port: 8080
+
+# 自定义的是否开启swagger的开关
+swagger:
+  enable: true
