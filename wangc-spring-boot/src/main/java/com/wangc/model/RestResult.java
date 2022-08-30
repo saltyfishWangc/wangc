@@ -52,4 +52,8 @@ public class RestResult<T> implements Serializable {
     public static RestResult fail(Integer code, String message) {
         return new RestResult(code, message, false);
     }
+
+    public static RestResult fail(ResponseCode responseCode) {
+        return new RestResult(responseCode.code, responseCode.message, false);
+    }
 }

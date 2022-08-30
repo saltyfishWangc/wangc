@@ -1,15 +1,13 @@
 package com.wangc.controller;
 
 import com.wangc.entity.Product;
+import com.wangc.model.ResponseCode;
 import com.wangc.model.RestResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.Map;
@@ -17,6 +15,8 @@ import java.util.Map;
 /**
  * @author
  * @Description:
+ *  经过在aop功能测试过程中，对于@RequestParam这些参数的校验并不是在执行到方法时校验的，而是在请求做路径映射匹配时就开始校验了。
+ *  现象：如果被@RequestParam标记的参数没有传，还没进入到对应的aop通知逻辑就报错了
  * @date 2022/8/29 19:16
  */
 @Api("获取产品信息")
