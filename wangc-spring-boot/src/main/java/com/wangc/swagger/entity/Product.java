@@ -1,4 +1,4 @@
-package com.wangc.entity;
+package com.wangc.swagger.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

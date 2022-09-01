@@ -1,0 +1,23 @@
+# elasticsearch配置
+elasticsearch:
+  rest:
+    # es节点地址，集群用逗号隔开
+    uris: 192.168.19.128:9200
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: root
+    url: jdbc:mysql://192.168.19.128:3306/es_test?useUnicode=true&characterEncoding=utf8&autoReconnect=true
+    initialization-mode: always
+    # 启动时自动执行初始化脚本
+#    schema: classpath:sql/es_init.sql
+  jpa:
+    # 开启sql日志打印
+    show-sql: true
+    hibernate:
+      # 会自动生成表
+      ddl-auto: update

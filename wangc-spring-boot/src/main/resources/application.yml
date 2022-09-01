@@ -1,6 +1,14 @@
 server:
   port: 8080
 
-# 自定义的是否开启swagger的开关
-swagger:
-  enable: true
+spring:
+  profiles:
+    active: swagger, elasticsearch
+
+  # jackson全部配置
+  # 当用@RequestBody接收数据时，前端传的是yyyy-MM-dd HH:mm:ss的json串，后端对应实体类中的字段类型是data，会出现无法反序列化的异常
+  jackson:
+    locale: zh_CN
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+08:00
+

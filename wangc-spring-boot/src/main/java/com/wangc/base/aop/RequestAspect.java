@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
  * @date 2022/8/30 9:53
  */
 @Component
-@Aspect
+//@Aspect
 @Slf4j
 public class RequestAspect {
 

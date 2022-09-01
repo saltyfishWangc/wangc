@@ -1,4 +1,4 @@
-package com.wangc.config;
+package com.wangc.swagger.config;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.context.annotation.Configuration;

@@ -1,7 +1,6 @@
-package com.wangc.controller;
+package com.wangc.swagger.controller;
 
-import com.wangc.entity.Product;
-import com.wangc.model.ResponseCode;
+import com.wangc.swagger.entity.Product;
 import com.wangc.model.RestResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;

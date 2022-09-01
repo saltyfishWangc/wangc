@@ -43,6 +43,9 @@
         <lombok.version>1.18.10</lombok.version>
         <!-- 多配置环境下用于指定配置文件的根目录 -->
         <profiles.dir>src/main/profiles</profiles.dir>
+        <fastjson.version>1.2.60</fastjson.version>
+        <mysql.version>5.1.47</mysql.version>
+        <druid.version>1.1.16</druid.version>
     </properties>
 
     <!-- dependencyManagement只定义在父pom中，用于给子模块统一定义版本，在这里依赖管理的版本在子模块中引入时不再需要指定version -->
@@ -79,6 +82,26 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+
+            <!--mysql-->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+                <scope>runtime</scope>
+            </dependency>
+            <!--druid-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid</artifactId>
+                <version>${druid.version}</version>
             </dependency>
         </dependencies>
 
