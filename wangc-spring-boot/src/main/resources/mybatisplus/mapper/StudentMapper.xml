@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangc.mybatisPlus.mapper.StudentMapper">
+
+    <!-- 查询结果映射 -->
+    <resultMap id="BaseResultMap" type="com.wangc.mybatisPlus.pojo.Student">
+        <id column="ID" property="id" />
+        <result column="NAME" property="name"/>
+        <result column="AGE" property="age"/>
+        <result column="LIVE_ADDR" property="liveAddr" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ID, NAME, AGE
+    </sql>
+    
+    <select id="queryStudentListWithMapperXml" parameterType="com.wangc.mybatisPlus.pojo.param.StudentQueryParam" resultType="com.wangc.mybatisPlus.pojo.Student">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM  student
+        <where>
+          <if test="id != null and id !='' ">
+              and id = #{id}
+          </if>
+          <if test="name != null and name != '' ">
+              and name = #{name}
+          </if>
+          <if test="age != null and age != '' ">
+              and age = #{age}
+          </if>
+          <if test="ids != null and ids.size() > 0">
+              and id in
+              <foreach collection="ids" index="index" open="(" close=")" separator="," item="id">
+                  #{id}
+              </foreach>
+          </if>
+        </where>
+    </select>
+
+</mapper>

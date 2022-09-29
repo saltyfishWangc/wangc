@@ -1,0 +1,25 @@
+spring:
+  integration:
+    mybatisplus:
+      enabled: false
+
+  # 数据源配置
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: root
+    url: jdbc:mysql://192.168.19.128:3306/mybatisPlusTest?useUnicode=true&characterEncoding=utf8&autoReconnect=true
+    type: com.alibaba.druid.pool.DruidDataSource
+
+    # 启动时自动执行初始化脚本
+    initialization-mode: always
+    schema: classpath:sql/mybatisplus_init.sql
+
+# mybatis-plus配置
+mybatis-plus:
+  # 如果都是用的BaseMapper的接口，或者使用mybatis的接口去操作数据库，不需要自定义脚本的，可以不需要这个配置，只需要在对应的*mapper.java上加上@Mapper、@Repository
+  mapper-locations: classpath*:mybatisplus/mapper/**/*.xml
+  configuration:
+    # 输出sql语句
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#  type-aliases-package: com.wangc.mybatisPlus.pojo
