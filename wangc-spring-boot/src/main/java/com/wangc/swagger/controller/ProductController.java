@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -38,5 +39,13 @@ public class ProductController {
     })
     public RestResult<String> order(@ApiIgnore @RequestParam Map<String, String> params) {
         return RestResult.ok(null);
+    }
+
+    @PostMapping("/swaggerRetTest")
+    @ApiOperation(value = "swagger返回map测试", notes = "")
+    public RestResult<Map<String, Object>> swaggerRetTest(@RequestParam Integer productId) {
+        Map<String, Object> result = new HashMap<>();
+        result.put("name", "wangc");
+        return RestResult.ok(result);
     }
 }

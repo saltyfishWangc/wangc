@@ -5,3 +5,9 @@
 
 ## 引入spring-boot-starter-aop
 见wangc-spring-boot模块README.md
+
+## 整合ElasticSearch
+见wangc-spring-boot模块README.md
+
+## 整合Mybatis-plus
+见wangc-spring-boot模块README.md

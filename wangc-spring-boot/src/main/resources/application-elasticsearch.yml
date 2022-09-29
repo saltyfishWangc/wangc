@@ -5,6 +5,10 @@ elasticsearch:
     uris: 192.168.19.128:9200
 
 spring:
+  integration:
+    elasticsearch:
+      # 自定义的是否集成elasticsearch开关
+      enbaled: false
   main:
     allow-bean-definition-overriding: true
   datasource:

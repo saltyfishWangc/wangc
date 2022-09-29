@@ -1,9 +1,9 @@
-server:
-  port: 8080
+#server:
+#  port: 8080
 
 spring:
   profiles:
-    active: swagger, elasticsearch
+    active: mybatisplus
 
   # jackson全部配置
   # 当用@RequestBody接收数据时，前端传的是yyyy-MM-dd HH:mm:ss的json串，后端对应实体类中的字段类型是data，会出现无法反序列化的异常

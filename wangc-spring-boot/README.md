@@ -12,6 +12,8 @@
      <version>2.9.2</version>
  </dependency>
 ```
+代码实操见：wangc-spring-boot模块的com.wangc.swagger包
+
 2. 创建Swagger2Config.java配置类
 启动项目访问http://localhost:8080/swagger-ui.html就可以看到swagger ui
 
@@ -54,6 +56,8 @@ Swagger3和Swagger2的区别：
 </dependency>
 ```
 <br>
+代码实操见：wangc-spring-boot模块的com.wangc.base.aop包
+
 2. 创建切面RequestAspect.java
 
 AOP注解说明：
@@ -87,3 +91,57 @@ AOP注解说明：
 @Before("execution(* com.wangc.controller..*.*(..))")，这样就少了@Pointcut("execution(* com.wangc.controller..*.*(..))")
 
 这些注解都是aspectj包中的，所以这也是为什么spring aop中依赖了aspectj的原因
+
+## 2022.09.02 SpringBoot整合ElasticSearch
+1. 引入对应依赖
+```
+<!-- 引入 elasticsearch -->
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-elasticsearch</artifactId>
+</dependency>
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-data-jpa</artifactId>
+</dependency>
+```
+代码实操见：wangc-spring-boot模块的com.wangc.es包
+
+采用jpa作为持久层框架。经过使用了解，jpa的优势就是将数据表和实体类对应，会根据定义的repository接口名称自动解析成脚本去操作数据库。不需要自己写脚本，也无需编写repository接口的实现。
+
+## 2022.09.02 SpringBoot整合Mybatis-plus
+1. 引入对应依赖
+```
+<!--mybatis plus start-generator jdbc-->
+<dependency>
+    <groupId>com.baomidou</groupId>
+    <artifactId>mybatis-plus-boot-starter</artifactId>
+    <version>${mybatis-plus-boot-starter.version}</version>
+</dependency>
+<dependency>
+    <groupId>com.alibaba</groupId>
+    <artifactId>druid-spring-boot-starter</artifactId>
+</dependency>
+<dependency>
+    <groupId>com.baomidou</groupId>
+    <artifactId>mybatis-plus-generator</artifactId>
+    <version>${mybatis-plus-generator.version}</version>
+</dependency>
+<!--mysql-->
+<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+</dependency>
+<!--druid-->
+<dependency>
+    <groupId>com.alibaba</groupId>
+    <artifactId>druid-spring-boot-starter</artifactId>
+    <version>${druid.version}</version>
+</dependency>
+<dependency>
+    <groupId>com.alibaba</groupId>
+    <artifactId>druid</artifactId>
+</dependency>
+```
+代码实操见：wangc-spring-boot模块的com.wangc.mybatisPlus包
+

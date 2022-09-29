@@ -2,6 +2,7 @@ package com.wangc.es.config;
 
 import org.elasticsearch.client.RestHighLevelClient;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.elasticsearch.client.ClientConfiguration;
@@ -13,6 +14,7 @@ import org.springframework.data.elasticsearch.config.AbstractElasticsearchConfig
  * @Description: elasticsearch配置Bean
  * @date 2022/8/31 19:10
  */
+@ConditionalOnProperty(name="spring.integration.elasticsearch.enabled", havingValue = "true")
 @Configuration
 public class ElasticsearchClientConfig extends AbstractElasticsearchConfiguration {
 
