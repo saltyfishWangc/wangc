@@ -41,4 +41,10 @@ public interface UserService {
      * 结合aop来切换数据源
      */
     void changeDataSourceWithAop();
+
+
+    /**
+     * 结合aop来实现默认从库查询为空切换主库再次调用
+     */
+    User changeDataSourceWithAopReinvoke();
 }

@@ -2,6 +2,7 @@ package com.wangc.shardingsphere.shardingjdbc.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.wangc.shardingsphere.shardingjdbc.aop.annotation.MasterDataSource;
+import com.wangc.shardingsphere.shardingjdbc.aop.annotation.MasterDataSourceRevoke;
 import com.wangc.shardingsphere.shardingjdbc.entity.User;
 import com.wangc.shardingsphere.shardingjdbc.mapper.UserMapper;
 import com.wangc.shardingsphere.shardingjdbc.service.UserService;
@@ -68,5 +69,13 @@ public class UserServiceImpl implements UserService {
         userMapper.update(user, queryWrapper);
 
         System.out.println(String.valueOf(userMapper.selectObjs(queryWrapper)));
+    }
+
+    @Override
+    @MasterDataSourceRevoke
+    public User changeDataSourceWithAopReinvoke() {
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("nickname", "changeDataSourceWithAopReinvoke");
+        return userMapper.selectOne(queryWrapper);
     }
 }

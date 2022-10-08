@@ -10,6 +10,8 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
+
 /**
  * @author
  * @Description:
@@ -30,6 +32,13 @@ public class DataSourceAop {
     public void pointCut() {}
 
     /**
+     * 定义切点
+     * 范文：被@MasterDataSourceRevoke标注的方法
+     */
+    @Pointcut("@annotation(com.wangc.shardingsphere.shardingjdbc.aop.annotation.MasterDataSourceRevoke)")
+    public void changeMasterDataSourceRevoke() {}
+
+    /**
      * 直接在被注解标识的方法上切换数据源。调用后换回默认的数据源
      * @param joinPoint
      */
@@ -40,6 +49,30 @@ public class DataSourceAop {
             hintManager.setMasterRouteOnly();
             log.info("切换成主数据源");
             obj = joinPoint.proceed();
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+        return obj;
+    }
+
+    /**
+     * 被注解标识的方法被调用后返回null，切换数据源再调一次
+     * @param joinPoint
+     */
+    @Around("changeMasterDataSourceRevoke()")
+    public Object dochangeMasterDataSourceRevokeAround(ProceedingJoinPoint joinPoint) {
+        Object obj = null;
+        try {
+            obj = joinPoint.proceed();
+            log.info("返回：" + String.valueOf(obj));
+            if (Objects.isNull(obj)) {
+                try (HintManager hintManager = HintManager.getInstance()) {
+                    hintManager.setMasterRouteOnly();
+                    log.info("切换成主数据源");
+                    obj = joinPoint.proceed();
+                    log.info("返回：" + String.valueOf(obj));
+                }
+            }
         } catch (Throwable e) {
             e.printStackTrace();
         }

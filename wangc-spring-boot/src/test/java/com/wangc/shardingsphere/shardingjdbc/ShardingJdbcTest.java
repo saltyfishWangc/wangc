@@ -62,4 +62,10 @@ public class ShardingJdbcTest {
         log.info("测试ShardingJdbc结合aop切换数据源，注意观察日志操作的对应数据源是否一致");
         userService.changeDataSourceWithAop();
     }
+
+    @Test
+    public void testChangeDataSourceWithAopReinvoke() {
+        log.info("测试ShardingJdbc结合aop实现从库查询方法返回空后切换数据源再次调用，注意观察日志操作的对应数据源是否一致");
+        userService.changeDataSourceWithAopReinvoke();
+    }
 }
