@@ -19,14 +19,14 @@ import org.springframework.stereotype.Component;
  * @date 2022/8/30 9:53
  */
 @Component
-//@Aspect
+@Aspect
 @Slf4j
 public class RequestAspect {
 
     /**
      * 指明切点，也就是从哪些方法进行切入
      */
-    @Pointcut("execution(* com.wangc.controller..*.*(..))")
+    @Pointcut("execution(* com.wangc.base.aop.controller..*.*(..))")
     public void pointCut() {
         // 这个方法只是为了定义切点，后面告诉通知，本身没有任何业务逻辑
     }

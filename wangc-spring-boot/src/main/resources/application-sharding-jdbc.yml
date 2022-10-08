@@ -1,0 +1,62 @@
+spring:
+  main:
+    # 没有该配置启动时会报Consider renaming one of the beans or enabling overriding by setting spring.main.allow-bean-definition-overriding=true
+    allow-bean-definition-overriding: true
+
+  shardingsphere:
+    datasource:
+
+      # 数据源公共配置
+      ds:
+        maxPoolSize: 100
+        # 启动时自动执行初始化脚本
+        # 下面配置在ShardingSphere不可用
+#        initialization-mode: always
+#        schema: classpath:sql/sharding-jdbc_init.sql
+
+      # 配置数据源
+      names: master,slave
+      # 配置master数据源连接信息
+      master:
+        driver-class-name: com.mysql.jdbc.Driver
+        maxPoolSize: 100
+        minPoolSize: 5
+        username: root
+        password: root
+        type: com.alibaba.druid.pool.DruidDataSource
+        url: jdbc:mysql://192.168.19.128:3306/sharding-jdbc-db-master?useUnicode=true&useSSL=false&characterEncoding=utf8&autoReconnect=true
+
+      # 配置slave数据源连接信息
+      slave:
+        driver-class-name: com.mysql.jdbc.Driver
+        maxPoolSize: 100
+        minPoolSize: 5
+        username: root
+        password: root
+        type: com.alibaba.druid.pool.DruidDataSource
+        url: jdbc:mysql://192.168.19.128:3306/sharding-jdbc-db-slave?useUnicode=true&useSSL=false&characterEncoding=utf8&autoReconnect=true
+
+    # 主从模式配置
+    masterslave:
+      # 配置主从名称
+      name: msTest
+      # 配置主库
+      master-data-source-name: master
+      # 配置从库(多个用,隔开)
+      slave-data-source-names: slave
+      # 配置slave节点的负载均衡策略，采用轮询机制
+      load-balance-algorithm-type: round_robin
+
+    props:
+      sql:
+        # 显示sql
+        show: true
+
+    # 配置默认数据源(默认的主库)
+    sharding:
+      default-data-source-name: master
+
+# 整合mybatis-plus配置
+mybatis-plus:
+  type-aliases-package: com.wangc.shardingsphere.shardingjdbc.entity
+

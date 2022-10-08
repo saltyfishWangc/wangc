@@ -16,6 +16,11 @@ import lombok.*;
 @RequiredArgsConstructor
 @Getter
 @Setter
+/**
+ * @TableName 注解说明：如果没有这个，那BaseMapper中的方法以及用Mybatis的接口开发，如QueryWrapper这些传参是会报错的，
+ * 因为那里面的脚本都是mybatis自己生成的，并不是开发编写的，没有指定表名，需要根据这里的注解得到表名，当然，
+ * 如果这里没有注解，那就用类名作为默认表名，所以，对于表名和实体类名不一致的需要加这个注解指明
+ */
 //@TableName("student")
 public class Student {
 

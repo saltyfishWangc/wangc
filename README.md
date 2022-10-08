@@ -11,3 +11,6 @@
 
 ## 整合Mybatis-plus
 见wangc-spring-boot模块README.md
+
+## 整合shardingsphere的sharding-jdbc
+见wangc-spring-boot模块README.md

@@ -145,3 +145,5 @@ AOP注解说明：
 ```
 代码实操见：wangc-spring-boot模块的com.wangc.mybatisPlus包
 
+## 2022.10.08 SpringBoot整合ShardingSphere的Sharding-jdbc实现数据库读写分离
+

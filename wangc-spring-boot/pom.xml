@@ -17,6 +17,9 @@
         <!-- mybatis-plus版本-->
         <mybatis-plus-boot-starter.version>3.2.0</mybatis-plus-boot-starter.version>
         <mybatis-plus-generator.version>3.2.0</mybatis-plus-generator.version>
+        <!-- Caused by: java.lang.ClassNotFoundException: org.apache.shardingsphere.core.yaml.config.sharding.YamlShardingRuleConfiguration -->
+        <!--<sharding-jdbc.version>4.1.0</sharding-jdbc.version>-->
+        <sharding-jdbc.version>4.0.0-RC1</sharding-jdbc.version>
     </properties>
 
     <dependencies>
@@ -26,7 +29,7 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- 引入spring-boot-starter-test 后面看看怎么编写测试单元 -->
+        <!-- 引入spring-boot-starter-test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -110,6 +113,13 @@
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-generator</artifactId>
             <version>${mybatis-plus-generator.version}</version>
+        </dependency>
+
+        <!--ShardingSphere的sharding-jdbc-->
+        <dependency>
+            <groupId>org.apache.shardingsphere</groupId>
+            <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
+            <version>${sharding-jdbc.version}</version>
         </dependency>
     </dependencies>
 
