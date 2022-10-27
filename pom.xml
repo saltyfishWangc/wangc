@@ -10,6 +10,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>wangc-spring-boot</module>
+        <module>hello-spring-boot-starter</module>
     </modules>
 
     <!--<repositories>-->
