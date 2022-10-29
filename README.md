@@ -318,3 +318,6 @@ ImportSelector的selectImports方法
 通过自定义@Enable**，里面通过@Import引入自定义的ImportSelector，实现selectImports方法，将指定的类加载到IOC中。然后使用端通过
 在启动类上加@Enable**来生效自动装配。
 
+原理：
+<https://www.processon.com/outline/635cd4455653bb070e1dcab8>
+
