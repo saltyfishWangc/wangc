@@ -4,7 +4,9 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 
 /**
  * @author
@@ -18,6 +20,9 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  *
  * 注意看：第一个方式@Component + @ConfigurationProperties太呆板了，只要使用了，那就是被容器管理了，不适用于spring boot starter
  * 第二种方式适合，因为可以去META-INFO/spring.factories下加上配置类，那么才会加载，如果不配，那就不加载
+ *
+ * @ConditionalOnProperty(prefix = "hello", name = "switch", havingValue = "true") 表示配置中有hello.name这个配置且值是true的时候，
+ * @Configuration才生效
  * @date 2022/10/27 19:48
  */
 @Data

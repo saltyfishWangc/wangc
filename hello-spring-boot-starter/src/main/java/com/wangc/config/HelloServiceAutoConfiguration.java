@@ -24,6 +24,7 @@ public class HelloServiceAutoConfiguration {
 
     /**
      * 实例化HelloService并载入Spring IOC容器
+     * @ConditionalOnMissingBean : 当给定的bean不存在时，则实例化当前Bean，存在则不会实例化
      * @return
      */
     @Bean
