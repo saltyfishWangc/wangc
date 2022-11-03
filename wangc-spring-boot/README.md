@@ -146,4 +146,24 @@ AOP注解说明：
 代码实操见：wangc-spring-boot模块的com.wangc.mybatisPlus包
 
 ## 2022.10.08 SpringBoot整合ShardingSphere的Sharding-jdbc实现数据库读写分离
+1. 添加依赖
+```
+<!--ShardingSphere的sharding-jdbc-->
+<dependency>
+    <groupId>org.apache.shardingsphere</groupId>
+    <artifactId>sharding-jdbc-spring-boot-starter</artifactId>
+    <version>${sharding-jdbc.version}</version>
+</dependency>
+```
+
+2. 添加配置
+详见：application-sharding-jdbc.yml
+
+3. 拓展用法
+3.1 代码切换数据源
+读写分离在实际应用场景中会出现主从同步不及时的问题，这种时候需要采用主库去读(当然，数据库层面是没有做主从权限设置的)。
+案例代码见：com.wangc.shardingsphere.shardingjdbc.service.impl.UserServiceImpl.findUsersByMasterDataSource
+
+还可以自定义注解，采用aop的方式来对某些只读取数据库的方法做返回空后切换主库再次调用：
+案例代码见：com.wangc.shardingsphere.shardingjdbc.service.impl.UserServiceImpl.changeDataSourceWithAop
 
