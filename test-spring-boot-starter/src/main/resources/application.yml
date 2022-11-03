@@ -1,0 +1,7 @@
+server:
+  port: 8080
+hello:
+  address: 湖北
+  name: wangc
+mylog:
+  switch: false
